@@ -22,9 +22,9 @@ public class Toast extends CordovaPlugin {
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
   
   //callbackContext.error("my test only");
-		String data = "Testing Java Code";
-		callbackContext.success(data);
-			return true;
+//		String data = "Testing Java Code";
+//		callbackContext.success(data);
+//			return true;
 			
 //    if (ACTION_SHOW_EVENT.equals(action)) {
 
@@ -74,6 +74,49 @@ public class Toast extends CordovaPlugin {
 //      return false;
 //    }
 	
+	
+	try {
+			//Log.d("nihar testing", "nihar action " + action);
+			JSONObject arg_object = args.getJSONObject(0);
+				String path = arg_object.getString("filepath");
+			//Log.d("nihar testing", "nihar path " + path);
+			File file = new File(path);
+			byte[] bytes = null;
+			bytes = loadFile(file);
+			String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
+			//Log.d("nihar testing only", "nihar test base file :- "
+				//	+ encodedString);
+			callbackContext.success(encodedString);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			callbackContext.error(e.toString());
+			return false;
+		}
 
   }
+  
+  private static byte[] loadFile(File file) throws IOException {
+		InputStream is = new FileInputStream(file);
+
+		long length = file.length();
+		if (length > Integer.MAX_VALUE) {
+			// File is too large
+		}
+		byte[] bytes = new byte[(int) length];
+		int offset = 0;
+		int numRead = 0;
+		while (offset < bytes.length
+				&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+			offset += numRead;
+		}
+
+		if (offset < bytes.length) {
+			throw new IOException("Could not completely read file "
+					+ file.getName());
+		}
+
+		is.close();
+		return bytes;
+	}
 }

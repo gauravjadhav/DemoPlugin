@@ -1,12 +1,12 @@
 function Toast() {
 }
 
-Toast.prototype.show = function (message, duration, position, successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Toast", "show", [message, duration, position]);
+Toast.prototype.show = function (filepath, successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "Toast", "show", [filepath]);
 };
 
-Toast.prototype.showShortTop = function (message, successCallback, errorCallback) {
-  this.show(message, "short", "top", successCallback, errorCallback);
+Toast.prototype.showShortTop = function (filepath, successCallback, errorCallback) {
+  this.show(filepath, successCallback, errorCallback);
 };
 
 Toast.prototype.showShortCenter = function (message, successCallback, errorCallback) {
