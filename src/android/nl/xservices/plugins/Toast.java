@@ -86,8 +86,9 @@ public class Toast extends CordovaPlugin {
 	
 	try {
 			//Log.d("nihar testing", "nihar action " + action);
-			JSONObject arg_object = args.getJSONObject(0);
-				String path = arg_object.getString("filepath");
+			JSONArray ary = new JSONArray(args);
+			JSONObject arg_object = ary.getJSONObject(0);
+			String path = arg_object.getString("filepath");
 			//Log.d("nihar testing", "nihar path " + path);
 			File file = new File(path);
 			byte[] bytes = null;
