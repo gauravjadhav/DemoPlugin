@@ -6,6 +6,14 @@ import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import android.util.Base64;
+import android.util.Log;
+
 /*
     // TODO nice way for the Toast plugin to offer a longer delay than the default short and long options
     // TODO also look at https://github.com/JohnPersano/Supertoasts
