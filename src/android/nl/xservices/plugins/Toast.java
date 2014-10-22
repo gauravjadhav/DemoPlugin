@@ -20,18 +20,23 @@ public class Toast extends CordovaPlugin {
 
   @Override
   public String execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-    if (ACTION_SHOW_EVENT.equals(action)) {
-
-      final String message = args.getString(0);
-      final String duration = args.getString(1);
-      final String position = args.getString(2);
-
-      cordova.getActivity().runOnUiThread(new Runnable() {
-        public void run() {
-		
-		callbackContext.error("my test only");
+  
+  callbackContext.error("my test only");
 		String data = "Testing Java Code";
 			return data;
+			
+//    if (ACTION_SHOW_EVENT.equals(action)) {
+
+//      final String message = args.getString(0);
+//      final String duration = args.getString(1);
+//      final String position = args.getString(2);
+
+//      cordova.getActivity().runOnUiThread(new Runnable() {
+//        public void run() {
+		
+//		callbackContext.error("my test only");
+//		String data = "Testing Java Code";
+//			return data;
 		
 //          android.widget.Toast toast = android.widget.Toast.makeText(webView.getContext(), message, 0);
 
@@ -66,7 +71,7 @@ public class Toast extends CordovaPlugin {
 //    } else {
 //      callbackContext.error("toast." + action + " is not a supported function. Did you mean '" + ACTION_SHOW_EVENT + "'?");
 //      return false;
-    }
+//    }
 	
 
   }
