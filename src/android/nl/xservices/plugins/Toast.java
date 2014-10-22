@@ -19,11 +19,12 @@ public class Toast extends CordovaPlugin {
   private static final String ACTION_SHOW_EVENT = "show";
 
   @Override
-  public String execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+  public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
   
-  callbackContext.error("my test only");
+  //callbackContext.error("my test only");
 		String data = "Testing Java Code";
-			return data;
+		callbackContext.success(data);
+			return true;
 			
 //    if (ACTION_SHOW_EVENT.equals(action)) {
 
