@@ -23,6 +23,8 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.net.Uri;
+import android.view.Menu;
+import android.widget.TextView;
 
 /*
  // TODO nice way for the Toast plugin to offer a longer delay than the default short and long options
