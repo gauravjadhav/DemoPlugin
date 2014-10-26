@@ -7,14 +7,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import android.net.Uri;
+import android.app.Activity;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.net.Uri;
 
 /*
  // TODO nice way for the Toast plugin to offer a longer delay than the default short and long options
