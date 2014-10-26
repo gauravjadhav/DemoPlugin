@@ -126,7 +126,7 @@ public class Toast extends CordovaPlugin {
 	public String findVideo(String filename) {
 		final String selection = MediaStore.Video.VideoColumns.DISPLAY_NAME
 				+ " LIKE '%" + filename + "'";
-		Cursor cursor = getActivity().getContentResolver().query(
+		Cursor cursor = cordova.getActivity().getContentResolver().query(
 				MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, selection,
 				null, null);
 		if (cursor == null || !cursor.moveToFirst()) {
@@ -144,7 +144,7 @@ public class Toast extends CordovaPlugin {
 	public String convertToBase64(Uri uri) {
 		InputStream is = null;
 		try {
-			is = getActivity().getContentResolver().openInputStream(uri);
+			is = cordova.getActivity().getContentResolver().openInputStream(uri);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
