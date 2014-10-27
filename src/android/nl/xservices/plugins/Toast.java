@@ -123,7 +123,7 @@ public class Toast extends CordovaPlugin {
 
 	}
 
-	[2:42 PM] Nihar Shah: 
+	
 
  public String findVideo(String filename) {
   final String selection = MediaStore.Video.VideoColumns.DISPLAY_NAME
