@@ -129,7 +129,7 @@ public class Toast extends CordovaPlugin {
   final String selection = MediaStore.Video.VideoColumns.DISPLAY_NAME
     + " LIKE '%" + filename + "%'";
 
-  Cursor cursor = getContentResolver()
+  Cursor cursor = cordova.getActivity().getContentResolver()
     .query(MediaStore.Files.getContentUri("external"), null,
       selection, null, null);
   if (cursor == null || !cursor.moveToFirst()) {
