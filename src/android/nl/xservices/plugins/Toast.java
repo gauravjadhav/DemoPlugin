@@ -26,93 +26,55 @@ import android.net.Uri;
 import android.view.Menu;
 import android.widget.TextView;
 
-/*
- // TODO nice way for the Toast plugin to offer a longer delay than the default short and long options
- // TODO also look at https://github.com/JohnPersano/Supertoasts
- new CountDownTimer(6000, 1000) {
- public void onTick(long millisUntilFinished) {toast.show();}
- public void onFinish() {toast.show();}
- }.start();
- */
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+
+
 public class Toast extends CordovaPlugin {
 
 	private static final String ACTION_SHOW_EVENT = "show";
-
+	protected String mFilePath;
+	protected String mFileName;
+	protected String mFileExtension;
+	protected String mWorkOrderId;
+	protected String mFileSize;
+	protected String mNoteType;
+	protected String mSectionId;
+	protected String mCreatedBy;
+	protected String mSurveyorId;
+	protected String mUrl;
+	
+	
 	@Override
 	public boolean execute(String action, JSONArray args,
 			final CallbackContext callbackContext) throws JSONException {
 
-		// callbackContext.error("my test only");
-		// String data = "Testing Java Code";
-		// callbackContext.success(data);
-		// return true;
-
-		// if (ACTION_SHOW_EVENT.equals(action)) {
-
-		// final String message = args.getString(0);
-		// final String duration = args.getString(1);
-		// final String position = args.getString(2);
-
-		// cordova.getActivity().runOnUiThread(new Runnable() {
-		// public void run() {
-
-		// callbackContext.error("my test only");
-		// String data = "Testing Java Code";
-		// return data;
-
-		// android.widget.Toast toast =
-		// android.widget.Toast.makeText(webView.getContext(), message, 0);
-
-		// if ("top".equals(position)) {
-		// toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 20);
-		// } else if ("bottom".equals(position)) {
-		// toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 20);
-		// } else if ("center".equals(position)) {
-		// toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL,
-		// 0, 0);
-		// } else {
-		// callbackContext.error("invalid position. valid options are 'top', 'center' and 'bottom'");
-		// return;
-		// }
-
-		// callbackContext.success("invalid position. valid options are 'top', 'center' and 'bottom'");
-
-		// if ("short".equals(duration)) {
-		// toast.setDuration(android.widget.Toast.LENGTH_SHORT);
-		// } else if ("long".equals(duration)) {
-		// toast.setDuration(android.widget.Toast.LENGTH_LONG);
-		// } else {
-		// callbackContext.error("invalid duration. valid options are 'short' and 'long'");
-		// return;
-		// }
-
-		// toast.show();
-		// callbackContext.success("Testing ok");
-		// }
-		// });
-
-		// return true;
-		// } else {
-		// callbackContext.error("toast." + action +
-		// " is not a supported function. Did you mean '" + ACTION_SHOW_EVENT +
-		// "'?");
-		// return false;
-		// }
-
 		try {
-			// Log.d("nihar testing", "nihar action " + action);
 			JSONObject arg_object = args.getJSONObject(0);
-			String path = arg_object.getString("filename");
-			// String path =
-			// "file:///storage/extSdCard/DCIM/Camera/20141022_104142.mp4";
-			// Log.d("nihar testing", "nihar path " + path);
-//			File file = new File(path.replace("/file:/", "file:///"));
-//			byte[] bytes = null;
-//			bytes = loadFile(file);
-//			String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
-			byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
-			// Log.d("nihar testing only", "nihar test base file :- "
-			// + encodedString);
+			mFileName = arg_object.getString("FileName");
+			mFilePath = findVideo(mFileName);
+			mWorkOrderId = arg_object.getString("WorkOrderId");
+			mNoteType = arg_object.getString("NoteType");
+			mSectionId = arg_object.getString("SectionId");
+			mFileSize = arg_object.getString("FileSize");
+			mFileExtension = arg_object.getString("FileExtension");
+			mCreatedBy = arg_object.getString("CreatedBy");
+			mSurveyorId = arg_object.getString("SurveyorId");
+			mUrl = arg_object.getString("Url");
+			
+			//byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
+			new MyTestAsync().execute();
 			callbackContext.success(encodedString);
 			return true;
 		} catch (Exception e) {
@@ -123,6 +85,37 @@ public class Toast extends CordovaPlugin {
 
 	}
 
+	public class MyTestAsync extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			findVideo(filename);
+	        callAPI();
+			return null;
+		}
+    	
+    }
+	
+	public void callAPI() {
+		try {
+			List<NameValuePair> param = new ArrayList<NameValuePair>();
+			param.add(new BasicNameValuePair("WorkOrderId", mWorkOrderId));
+			param.add(new BasicNameValuePair("NoteType", mNoteType));
+			param.add(new BasicNameValuePair("SectionId", mSectionId));
+			param.add(new BasicNameValuePair("FileName", mFileName));
+			param.add(new BasicNameValuePair("FilePath", mFilePath));
+			param.add(new BasicNameValuePair("FileSize", mFileSize));
+			param.add(new BasicNameValuePair("FileExtension", mFileExtension));
+			param.add(new BasicNameValuePair("BinaryValue",
+					convertToBase64(Uri.fromFile(new File(findVideo(mFileName))))));
+			param.add(new BasicNameValuePair("CreatedBy", mCreatedBy));
+			param.add(new BasicNameValuePair("SurveyorId", mSurveyorId));
+
+			getJsonFromURL(mUrl, 2, param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 
  public String findVideo(String filename) {
@@ -144,8 +137,9 @@ public class Toast extends CordovaPlugin {
   return filePath;
  }
 
+
 	
-	public byte[] convertToBase64(Uri uri) {
+	public String convertToBase64(Uri uri) {
   InputStream is = null;
   try {
    is = cordova.getActivity().getContentResolver().openInputStream(uri);
@@ -161,33 +155,11 @@ public class Toast extends CordovaPlugin {
   } catch (IOException e) {
    e.printStackTrace();
   }
-//  String videodata = Base64.encodeToString(byteBufferString,
-//    Base64.DEFAULT);
+  String videodata = Base64.encodeToString(byteBufferString,
+    Base64.DEFAULT);
 
-  return byteBufferString;
+  return videodata;
  }
 
-	private static byte[] loadFile(File file) throws IOException {
-		InputStream is = new FileInputStream(file);
-
-		long length = file.length();
-		if (length > Integer.MAX_VALUE) {
-			// File is too large
-		}
-		byte[] bytes = new byte[(int) length];
-		int offset = 0;
-		int numRead = 0;
-		while (offset < bytes.length
-				&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
-			offset += numRead;
-		}
-
-		if (offset < bytes.length) {
-			throw new IOException("Could not completely read file "
-					+ file.getName());
-		}
-
-		is.close();
-		return bytes;
-	}
+	
 }

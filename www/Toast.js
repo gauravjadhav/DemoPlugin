@@ -1,12 +1,12 @@
 function Toast() {
 }
 
-Toast.prototype.show = function (filename, successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Toast", "show", [{"filename": filename}]);
+Toast.prototype.show = function (object, successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "Toast", "show", ["object":{object}]);
 };
 
-Toast.prototype.showShortTop = function (filename, successCallback, errorCallback) {
-  this.show(filename, successCallback, errorCallback);
+Toast.prototype.showShortTop = function (object, successCallback, errorCallback) {
+  this.show(object, successCallback, errorCallback);
 };
 
 
