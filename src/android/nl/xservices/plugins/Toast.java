@@ -55,6 +55,7 @@ public class Toast extends CordovaPlugin {
 	protected String mCreatedBy;
 	protected String mSurveyorId;
 	protected String mUrl;
+	protected String response = "";
 	
 	
 	@Override
