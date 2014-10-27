@@ -1,33 +1,14 @@
 function Toast() {
 }
 
-Toast.prototype.show = function (filepath, successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Toast", "show", [{"filepath": filepath}]);
+Toast.prototype.show = function (filename, successCallback, errorCallback) {
+  cordova.exec(successCallback, errorCallback, "Toast", "show", [{"filename": filename}]);
 };
 
-Toast.prototype.showShortTop = function (filepath, successCallback, errorCallback) {
-  this.show(filepath, successCallback, errorCallback);
+Toast.prototype.showShortTop = function (filename, successCallback, errorCallback) {
+  this.show(filename, successCallback, errorCallback);
 };
 
-Toast.prototype.showShortCenter = function (message, successCallback, errorCallback) {
-  this.show(message, "short", "center", successCallback, errorCallback);
-};
-
-Toast.prototype.showShortBottom = function (message, successCallback, errorCallback) {
-  this.show(message, "short", "bottom", successCallback, errorCallback);
-};
-
-Toast.prototype.showLongTop = function (message, successCallback, errorCallback) {
-  this.show(message, "long", "top", successCallback, errorCallback);
-};
-
-Toast.prototype.showLongCenter = function (message, successCallback, errorCallback) {
-  this.show(message, "long", "center", successCallback, errorCallback);
-};
-
-Toast.prototype.showLongBottom = function (message, successCallback, errorCallback) {
-  this.show(message, "long", "bottom", successCallback, errorCallback);
-};
 
 Toast.install = function () {
   if (!window.plugins) {
