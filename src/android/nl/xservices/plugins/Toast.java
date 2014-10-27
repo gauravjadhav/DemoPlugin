@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.io.InputStream;
 
 import android.app.Activity;
@@ -113,7 +114,7 @@ public class Toast extends CordovaPlugin {
 			byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
 			// Log.d("nihar testing only", "nihar test base file :- "
 			// + encodedString);
-			callbackContext.success(encodedString);
+			callbackContext.success(Arrays.toString(encodedString));
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
