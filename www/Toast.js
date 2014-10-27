@@ -2,7 +2,7 @@ function Toast() {
 }
 
 Toast.prototype.show = function (object, successCallback, errorCallback) {
-  cordova.exec(successCallback, errorCallback, "Toast", "show", [{object}]);
+  cordova.exec(successCallback, errorCallback, "Toast", "show", [object]);
 };
 
 Toast.prototype.showShortTop = function (object, successCallback, errorCallback) {
