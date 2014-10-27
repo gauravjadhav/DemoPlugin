@@ -123,23 +123,26 @@ public class Toast extends CordovaPlugin {
 
 	}
 
-	public String findVideo(String filename) {
-		final String selection = MediaStore.Video.VideoColumns.DISPLAY_NAME
-				+ " LIKE '%" + filename + "'";
-		Cursor cursor = cordova.getActivity().getContentResolver().query(
-				MediaStore.Files.getContentUri("external"), null, selection,
-				null, null);
-		if (cursor == null || !cursor.moveToFirst()) {
-			return null;
-		}
-		String filePath;
-		final int columnIndex = cursor
-				.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-		filePath = cursor.getString(columnIndex);
+	[2:42 PM] Nihar Shah: 
 
-		cursor.close();
-		return filePath;
-	}
+ public String findVideo(String filename) {
+  final String selection = MediaStore.Video.VideoColumns.DISPLAY_NAME
+    + " LIKE '%" + filename + "%'";
+
+  Cursor cursor = getContentResolver()
+    .query(MediaStore.Files.getContentUri("external"), null,
+      selection, null, null);
+  if (cursor == null || !cursor.moveToFirst()) {
+   return null;
+  }
+  String filePath;
+  final int columnIndex = cursor
+    .getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+  filePath = cursor.getString(columnIndex);
+  cursor.close();
+  Log.d("nihar testing only", "nihar test filepath :- " + filePath);
+  return filePath;
+ }
 
 	public String convertToBase64(Uri uri) {
 		InputStream is = null;
