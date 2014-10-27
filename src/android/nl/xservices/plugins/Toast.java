@@ -39,7 +39,8 @@ import org.apache.http.util.EntityUtils;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Toast extends CordovaPlugin {
 
@@ -75,7 +76,7 @@ public class Toast extends CordovaPlugin {
 			
 			//byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
 			new MyTestAsync().execute();
-			callbackContext.success(encodedString);
+			callbackContext.success("success");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,7 +90,7 @@ public class Toast extends CordovaPlugin {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			findVideo(filename);
+			findVideo(mFileName);
 	        callAPI();
 			return null;
 		}
