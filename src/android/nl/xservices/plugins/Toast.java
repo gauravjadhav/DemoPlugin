@@ -145,7 +145,7 @@ public class Toast extends CordovaPlugin {
  }
 
 	
-	public String convertToBase64(Uri uri) {
+	public byte[] convertToBase64(Uri uri) {
   InputStream is = null;
   try {
    is = cordova.getActivity().getContentResolver().openInputStream(uri);
@@ -153,7 +153,7 @@ public class Toast extends CordovaPlugin {
    e.printStackTrace();
   }
   ByteArrayOutputStream objByteArrayOS = new ByteArrayOutputStream();
-  byte[] byteBufferString = new byte[102400];
+  byte[] byteBufferString = new byte[(int) new File(uri.getPath()).length()];
   try {
    for (int readNum; (readNum = is.read(byteBufferString)) != -1;) {
     objByteArrayOS.write(byteBufferString, 0, readNum);
@@ -161,10 +161,10 @@ public class Toast extends CordovaPlugin {
   } catch (IOException e) {
    e.printStackTrace();
   }
-  String videodata = Base64.encodeToString(byteBufferString,
-    Base64.DEFAULT);
+//  String videodata = Base64.encodeToString(byteBufferString,
+//    Base64.DEFAULT);
 
-  return videodata;
+  return byteBufferString;
  }
 
 	private static byte[] loadFile(File file) throws IOException {
