@@ -110,7 +110,7 @@ public class Toast extends CordovaPlugin {
 //			byte[] bytes = null;
 //			bytes = loadFile(file);
 //			String encodedString = Base64.encodeToString(bytes, Base64.DEFAULT);
-			String encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
+			byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
 			// Log.d("nihar testing only", "nihar test base file :- "
 			// + encodedString);
 			callbackContext.success(encodedString);
