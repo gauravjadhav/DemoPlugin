@@ -162,5 +162,51 @@ public class Toast extends CordovaPlugin {
   return videodata;
  }
 
+	protected String getJsonFromURL(String url, int method,
+            List<NameValuePair> params) {
+		// JSON Parsing will be done here
+		
+		try {
+            // http client
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpEntity httpEntity = null;
+            HttpResponse httpResponse = null;
+             
+            // Checking http request method type
+            if (method == 2) {
+            	Log.d("nihar url", "nihar url :- " + url);
+                HttpPost httpPost = new HttpPost(url);
+                // adding post params
+                if (params != null) {
+                    httpPost.setEntity(new UrlEncodedFormEntity(params));
+                }
+                
+                httpResponse = httpClient.execute(httpPost);
+ 
+            } else if (method == 1) {
+                // appending params to url
+                if (params != null) {
+                    String paramString = URLEncodedUtils
+                            .format(params, "utf-8");
+                    url += "?" + paramString;
+                }
+                Log.d("nihar url", "nihar get url :- " + url);
+                HttpGet httpGet = new HttpGet(url);
+ 
+                httpResponse = httpClient.execute(httpGet);
+ 
+            }
+            httpEntity = httpResponse.getEntity();
+            response = EntityUtils.toString(httpEntity);
+            Log.d("nihar testing response is :- ", "Nihar Response :- " + response);
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         
+        return response;
+		
+	}
+	
 	
 }
