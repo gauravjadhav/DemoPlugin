@@ -144,29 +144,28 @@ public class Toast extends CordovaPlugin {
   return filePath;
  }
 
+	
 	public String convertToBase64(Uri uri) {
-		InputStream is = null;
-		try {
-			is = cordova.getActivity().getContentResolver().openInputStream(uri);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		ByteArrayOutputStream objByteArrayOS = new ByteArrayOutputStream();
-		byte[] byteBufferString = new byte[1024];
-		try {
-			for (int readNum; (readNum = is.read(byteBufferString)) != -1;) {
-				objByteArrayOS.write(byteBufferString, 0, readNum);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+  InputStream is = null;
+  try {
+   is = cordova.getActivity.getContentResolver().openInputStream(uri);
+  } catch (FileNotFoundException e) {
+   e.printStackTrace();
+  }
+  ByteArrayOutputStream objByteArrayOS = new ByteArrayOutputStream();
+  byte[] byteBufferString = new byte[102400];
+  try {
+   for (int readNum; (readNum = is.read(byteBufferString)) != -1;) {
+    objByteArrayOS.write(byteBufferString, 0, readNum);
+   }
+  } catch (IOException e) {
+   e.printStackTrace();
+  }
+  String videodata = Base64.encodeToString(byteBufferString,
+    Base64.DEFAULT);
 
-		String videodata = Base64.encodeToString(byteBufferString,
-				Base64.DEFAULT);
-		// Log.d("VideoData**>  ", videodata);
-
-		return videodata;
-	}
+  return videodata;
+ }
 
 	private static byte[] loadFile(File file) throws IOException {
 		InputStream is = new FileInputStream(file);
