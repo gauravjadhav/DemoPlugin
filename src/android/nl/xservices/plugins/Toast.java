@@ -148,7 +148,7 @@ public class Toast extends CordovaPlugin {
 	public String convertToBase64(Uri uri) {
   InputStream is = null;
   try {
-   is = cordova.getActivity.getContentResolver().openInputStream(uri);
+   is = cordova.getActivity().getContentResolver().openInputStream(uri);
   } catch (FileNotFoundException e) {
    e.printStackTrace();
   }
