@@ -56,6 +56,7 @@ public class Toast extends CordovaPlugin {
 	protected String mSurveyorId;
 	protected String mUrl;
 	protected String response = "";
+	protected CallbackContext mCallbackContext;
 	
 	
 	@Override
@@ -74,10 +75,11 @@ public class Toast extends CordovaPlugin {
 			mCreatedBy = arg_object.getString("CreatedBy");
 			mSurveyorId = arg_object.getString("SurveyorId");
 			mUrl = arg_object.getString("Url");
+			mCallbackContext = callbackContext;
 			
 			//byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
 			new MyTestAsync().execute();
-			callbackContext.success("success");
+			//callbackContext.success("success");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,9 +93,14 @@ public class Toast extends CordovaPlugin {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			findVideo(mFileName);
+			//findVideo(mFileName);
 	        callAPI();
 			return null;
+		}
+		
+		@Override 
+		protected void onPostExecute(Long result) {
+			mCallbackContext.success(response);
 		}
     	
     }
@@ -109,7 +116,7 @@ public class Toast extends CordovaPlugin {
 			param.add(new BasicNameValuePair("FileSize", mFileSize));
 			param.add(new BasicNameValuePair("FileExtension", mFileExtension));
 			param.add(new BasicNameValuePair("BinaryValue",
-					convertToBase64(Uri.fromFile(new File(findVideo(mFileName))))));
+					convertToBase64(Uri.fromFile(new File(mFilePath)))));
 			param.add(new BasicNameValuePair("CreatedBy", mCreatedBy));
 			param.add(new BasicNameValuePair("SurveyorId", mSurveyorId));
 
