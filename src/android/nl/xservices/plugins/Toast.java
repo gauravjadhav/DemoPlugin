@@ -98,7 +98,6 @@ public class Toast extends CordovaPlugin {
 			return null;
 		}
 		
-		@Override 
 		protected void onPostExecute(Long result) {
 			mCallbackContext.success(response);
 		}
