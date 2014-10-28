@@ -99,7 +99,7 @@ public class Toast extends CordovaPlugin {
 		}
 		
 		protected void onPostExecute(Long result) {
-			mCallbackContext.success(response);
+			mCallbackContext.success("success");
 		}
     	
     }
