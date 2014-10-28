@@ -79,7 +79,8 @@ public class Toast extends CordovaPlugin {
 			
 			//byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
 			new MyTestAsync().execute();
-			callbackContext.success("success");
+			callAPI();
+			//callbackContext.success("success");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,14 +95,14 @@ public class Toast extends CordovaPlugin {
 		@Override
 		protected Void doInBackground(Void... params) {
 			//findVideo(mFileName);
-	        callAPI();
+	        //callAPI();
 			return null;
 		}
 		
-		//@Override
-		//protected void onPostExecute(Void result) {
-		//	mCallbackContext.success("success");
-		//}
+		@Override
+		protected void onPostExecute(Void result) {
+			mCallbackContext.success("success");
+		}
     	
     }
 	
@@ -207,6 +208,7 @@ public class Toast extends CordovaPlugin {
             httpEntity = httpResponse.getEntity();
             response = EntityUtils.toString(httpEntity);
             Log.d("nihar testing response is :- ", "Nihar Response :- " + response);
+			mCallbackContext.success("success");
  
         } catch (Exception e) {
             e.printStackTrace();
