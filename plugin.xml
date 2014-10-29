@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="nl.x-services.plugins.toast"
+        id="com.capgemini.plugins.toast"
         version="2.0.2">
 
   <name>Toast</name>
@@ -46,7 +46,7 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="Toast">
-        <param name="android-package" value="nl.xservices.plugins.Toast" />
+        <param name="android-package" value="com.capgemini.plugins.Toast" />
       </feature>
     </config-file>
 

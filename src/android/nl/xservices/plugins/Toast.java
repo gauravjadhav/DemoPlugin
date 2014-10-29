@@ -1,4 +1,4 @@
-package nl.xservices.plugins;
+package com.capgemini.plugins;
 
 import android.view.Gravity;
 import org.apache.cordova.CallbackContext;
