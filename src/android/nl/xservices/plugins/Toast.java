@@ -45,6 +45,7 @@ import java.util.List;
 public class Toast extends CordovaPlugin {
 
 	private static final String ACTION_SHOW_EVENT = "show";
+	private static final String ACTION_UPLOAD = "upload";
 	protected String mFilePath;
 	protected String mFileName;
 	protected String mFileExtension;
@@ -63,6 +64,8 @@ public class Toast extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args,
 			final CallbackContext callbackContext) throws JSONException {
 
+		mCallbackContext = callbackContext;
+		
 		try {
 			JSONObject arg_object = args.getJSONObject(0);
 			mFileName = arg_object.getString("FileName");
@@ -75,7 +78,6 @@ public class Toast extends CordovaPlugin {
 			mCreatedBy = arg_object.getString("CreatedBy");
 			mSurveyorId = arg_object.getString("SurveyorId");
 			mUrl = arg_object.getString("Url");
-			mCallbackContext = callbackContext;
 			
 			//byte[] encodedString = convertToBase64(Uri.fromFile(new File(findVideo(path))));
 			new MyTestAsync().execute();
@@ -87,9 +89,13 @@ public class Toast extends CordovaPlugin {
 			callbackContext.error(e.toString());
 			return false;
 		}
+		
+		
 
 	}
 
+	
+	
 	public class MyTestAsync extends AsyncTask<Void, Void, Void> {
 
 		@Override
