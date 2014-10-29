@@ -44,7 +44,11 @@ import java.util.List;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
+import com.example.testfilepath.ImageFilePath;
+
 
 public class Toast extends CordovaPlugin {
 
@@ -62,6 +66,7 @@ public class Toast extends CordovaPlugin {
 	protected String mUrl;
 	protected String response = "";
 	protected CallbackContext mCallbackContext;
+	private static final int GALLERY_INTENT_CALLED = 302;
 	
 	
 	@Override
@@ -69,7 +74,8 @@ public class Toast extends CordovaPlugin {
 			final CallbackContext callbackContext) throws JSONException {
 
 		mCallbackContext = callbackContext;
-
+		if(action.equals(ACTION_SHOW_EVENT)) {
+		
 		try {
 			JSONObject arg_object = args.getJSONObject(0);
 			mFileName = arg_object.getString("FileName");
@@ -93,11 +99,42 @@ public class Toast extends CordovaPlugin {
 			callbackContext.error(e.toString());
 			return false;
 		}
-				
+		
+		} else if(action.equals(ACTION_UPLOAD)) {
+			Intent i=  new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			i.setType("image/* vidoe/*");
+			startActivityForResult(i, GALLERY_INTENT_CALLED);
+		}
 
 	}
 
-	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == PluginResult.Status.Ok) {
+			if (requestCode == GALLERY_INTENT_CALLED) {
+				if (null == data)
+					return;
+
+				String selectedImagePath;
+				Uri selectedImageUri = data.getData();
+
+				// MEDIA GALLERY
+				selectedImagePath = ImageFilePath.getPath(
+						cordova.getActivity(), selectedImageUri);
+				
+				ContentResolver cR = cordova.getActivity().getContentResolver();
+				MimeTypeMap mime = MimeTypeMap.getSingleton();
+				String type = cR.getType(selectedImageUri);
+				String ext = mime.getExtensionFromMimeType(cR.getType(selectedImageUri));
+				
+				File f = new File(selectedImagePath);
+				
+				//Log.i("Image File Path", "" + selectedImagePath);
+				//txta.setText("Image File Path : \n" + selectedImagePath + "\ntype is : " + type + "\nname is : " + f.getName() + "\next is : " + ext);
+				mCallbackContext.success(selectedImagePath + "," + f.getName() + "," + ext + "," + type);
+			}
+		}
+	}
 	
 	public class MyTestAsync extends AsyncTask<Void, Void, Void> {
 
