@@ -42,6 +42,10 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.webkit.MimeTypeMap;
+
 public class Toast extends CordovaPlugin {
 
 	private static final String ACTION_SHOW_EVENT = "show";
