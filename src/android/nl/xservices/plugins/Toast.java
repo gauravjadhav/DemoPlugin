@@ -47,7 +47,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
-import nl.xservices.plugins.ImageFilePath;
+import nl.xservices.plugins.getpath.ImageFilePath;
 
 
 public class Toast extends CordovaPlugin {
