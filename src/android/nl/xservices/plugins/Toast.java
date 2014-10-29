@@ -42,6 +42,10 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.webkit.MimeTypeMap;
+
 public class Toast extends CordovaPlugin {
 
 	private static final String ACTION_SHOW_EVENT = "show";
@@ -65,7 +69,7 @@ public class Toast extends CordovaPlugin {
 			final CallbackContext callbackContext) throws JSONException {
 
 		mCallbackContext = callbackContext;
-		
+
 		try {
 			JSONObject arg_object = args.getJSONObject(0);
 			mFileName = arg_object.getString("FileName");
@@ -89,8 +93,7 @@ public class Toast extends CordovaPlugin {
 			callbackContext.error(e.toString());
 			return false;
 		}
-		
-		
+				
 
 	}
 

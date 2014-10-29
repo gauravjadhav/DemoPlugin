@@ -9,7 +9,6 @@ Toast.prototype.showShortTop = function (object, successCallback, errorCallback)
   this.show(object, successCallback, errorCallback);
 };
 
-
 Toast.install = function () {
   if (!window.plugins) {
     window.plugins = {};
