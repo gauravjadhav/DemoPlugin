@@ -4,7 +4,7 @@
         id="com.capgemini.plugins.toast"
         version="2.0.2">
 
-  <name>Toast</name>
+  <name>Video and Audio sync</name>
 
   <description>
     This plugin allows you to show a Toast.
@@ -14,7 +14,7 @@
   <license>MIT</license>
 
   <engines>
-    <engine name="cordova" version=">=3.0.0"/>
+    <engine name="cordova" version="3.5.0"/>
   </engines>
 
   <js-module src="www/Toast.js" name="Toast">
