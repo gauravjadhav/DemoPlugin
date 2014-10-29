@@ -47,7 +47,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
-import com.example.testfilepath.ImageFilePath;
+import com.capgemini.plugins.ImageFilePath;
 
 
 public class Toast extends CordovaPlugin {
@@ -103,14 +103,14 @@ public class Toast extends CordovaPlugin {
 		} else if(action.equals(ACTION_UPLOAD)) {
 			Intent i=  new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			i.setType("image/* vidoe/*");
-			startActivityForResult(i, GALLERY_INTENT_CALLED);
+			cordova.getActivity().startActivityForResult(i, GALLERY_INTENT_CALLED);
 		}
 
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == PluginResult.Status.Ok) {
+		if (resultCode == cordova.getActivity().RESULT_OK) {
 			if (requestCode == GALLERY_INTENT_CALLED) {
 				if (null == data)
 					return;
