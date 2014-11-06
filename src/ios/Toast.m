@@ -16,8 +16,10 @@
     NSString* foofile = [documentsPath stringByAppendingPathComponent:[dict objectForKey:@"FilePath"]];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
     NSString *stringFileName;
+    NSData *da = [NSData dataWithContentsOfFile:foofile];
     
-    if (fileExists)
+
+    if (da)
     {
         stringFileName = [NSString stringWithFormat:@"file was found with document path %@ and filepath %@",documentsPath,foofile];
         
