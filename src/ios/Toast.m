@@ -18,9 +18,7 @@
     NSData *datavidaud = [NSData dataWithContentsOfFile:filePath];
     NSString *base64Encoded = [datavidaud base64EncodedStringWithOptions:0];
     
-    int stringlength = [base64Encoded stringlength];
-
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:stringlength];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:base64Encoded];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
 }
