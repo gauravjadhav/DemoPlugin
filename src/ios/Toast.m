@@ -10,21 +10,22 @@
   
     NSMutableDictionary *dict = [command.arguments objectAtIndex:0];
     
-    NSString *stringFileName;
 
     
     NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* foofile = [documentsPath stringByAppendingPathComponent:[dict objectForKey:@"FilePath"]];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
+    NSString *stringFileName;
     
     if (fileExists)
     {
-        stringFileName = @"file found";
+        stringFileName = [NSString stringWithFormat:@"file found with document path %@ and filepath %@",documentsPath,foofile];
         
     }
     else
     {
-        stringFileName = @"file not found";
+    
+            stringFileName = [NSString stringWithFormat:@"file not found with document path %@ and filepath %@",documentsPath,foofile];
     }
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:stringFileName];
