@@ -27,7 +27,6 @@ typedef void (^CompletionBlock)(id object,NSError *error);
     NSString* foofile = [documentsPath stringByAppendingPathComponent:[dict objectForKey:@"FilePath"]];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:foofile];
     
-    NSString *stringFileName;
     NSData *datavid = [NSData dataWithContentsOfFile:foofile];
     NSString *base64Encoded = [datavid base64EncodedStringWithOptions:0];
 
@@ -36,20 +35,21 @@ typedef void (^CompletionBlock)(id object,NSError *error);
         
         if (object)
         {
-            stringFileName = [NSString stringWithFormat:@"file was found with document path %@ and filepath %@",documentsPath,foofile];
-
+            
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"success"];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             
         }
         else
         {
-            stringFileName = [NSString stringWithFormat:@"file was not found with document path %@ and filepath %@",documentsPath,foofile];
+            CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"fail"];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            return;
             
         }
     }];
 
-    
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:stringFileName];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+
 }
 
 
