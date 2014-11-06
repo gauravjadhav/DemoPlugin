@@ -19,13 +19,13 @@
     
     if (fileExists)
     {
-        stringFileName = [NSString stringWithFormat:@"file found with document path %@ and filepath %@",documentsPath,foofile];
+        stringFileName = [NSString stringWithFormat:@"file was found with document path %@ and filepath %@",documentsPath,foofile];
         
     }
     else
     {
     
-            stringFileName = [NSString stringWithFormat:@"file not found with document path %@ and filepath %@",documentsPath,foofile];
+            stringFileName = [NSString stringWithFormat:@"file was not found with document path %@ and filepath %@",documentsPath,foofile];
     }
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:stringFileName];
